@@ -1,6 +1,8 @@
 package modelo;
 
 import java.util.List;
+
+import dto.DomicilioDTO;
 import dto.PersonaDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.PersonaDAO;
@@ -15,9 +17,9 @@ public class Agenda
 		this.persona = metodo_persistencia.createPersonaDAO();
 	}
 	
-	public void agregarPersona(PersonaDTO nuevaPersona)
+	public void agregarPersona(PersonaDTO nuevaPersona, DomicilioDTO domicilio)
 	{
-		this.persona.insert(nuevaPersona);
+		this.persona.insert(nuevaPersona, domicilio);
 	}
 
 	public void borrarPersona(PersonaDTO persona_a_eliminar) 

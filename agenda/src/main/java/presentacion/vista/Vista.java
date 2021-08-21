@@ -137,7 +137,8 @@ public class Vista
 		{
 			String nombre = p.getNombre();
 			String tel = p.getTelefono();
-			Object[] fila = {nombre, tel};
+			String dom = p.getDomicilio();
+			Object[] fila = {nombre, tel, dom};
 			this.getModelPersonas().addRow(fila);
 		}
 		

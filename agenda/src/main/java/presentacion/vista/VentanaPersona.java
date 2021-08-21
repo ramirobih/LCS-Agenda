@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +14,7 @@ public class VentanaPersona extends JFrame
 	private JPanel contentPane;
 	private JTextField txtNombre;
 	private JTextField txtTelefono;
+	private JTextField txtDomicilio;
 	private JButton btnAgregarPersona;
 	private static VentanaPersona INSTANCE;
 	
@@ -48,8 +50,12 @@ public class VentanaPersona extends JFrame
 		panel.add(lblNombreYApellido);
 		
 		JLabel lblTelfono = new JLabel("Telefono");
-		lblTelfono.setBounds(10, 52, 113, 14);
+		lblTelfono.setBounds(10, 34, 113, 14);
 		panel.add(lblTelfono);
+		
+		JLabel lblDomicilio = new JLabel("Domicilio");
+		lblDomicilio.setBounds(10, 52, 113, 14);
+		panel.add(lblDomicilio);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(133, 8, 164, 20);
@@ -60,6 +66,11 @@ public class VentanaPersona extends JFrame
 		txtTelefono.setBounds(133, 49, 164, 20);
 		panel.add(txtTelefono);
 		txtTelefono.setColumns(10);
+		
+		txtDomicilio = new JTextField();
+		txtDomicilio.setBounds(133, 49, 164, 20);
+		panel.add(txtDomicilio);
+		txtDomicilio.setColumns(10);
 		
 		btnAgregarPersona = new JButton("Agregar");
 		btnAgregarPersona.setBounds(208, 92, 89, 23);
@@ -93,6 +104,11 @@ public class VentanaPersona extends JFrame
 		this.txtNombre.setText(null);
 		this.txtTelefono.setText(null);
 		this.dispose();
+	}
+
+	public AbstractButton getTextEmail() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

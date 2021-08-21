@@ -8,6 +8,7 @@ import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
+import dto.DomicilioDTO;
 import dto.PersonaDTO;
 
 public class Controlador implements ActionListener
@@ -35,8 +36,11 @@ public class Controlador implements ActionListener
 		private void guardarPersona(ActionEvent p) {
 			String nombre = this.ventanaPersona.getTxtNombre().getText();
 			String tel = ventanaPersona.getTxtTelefono().getText();
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel);
-			this.agenda.agregarPersona(nuevaPersona);
+			String dom = this.ventanaPersona.getTxtNombre().getText();
+			String mail = this.ventanaPersona.getTextEmail().getText();
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, mail);
+			DomicilioDTO nuevoDom = new DomicilioDTO(1,"18 de octubre", "1375", "-", "-");
+			this.agenda.agregarPersona(nuevaPersona,nuevoDom );
 			this.refrescarTabla();
 			this.ventanaPersona.cerrar();
 		}

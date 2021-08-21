@@ -7,33 +7,43 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.DomicilioDTO;
+import dto.PersonaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.PersonaDAO;
-import dto.PersonaDTO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO personas(idPersona, nombre, telefono) VALUES(?, ?, ?)";
-	private static final String delete = "DELETE FROM personas WHERE idPersona = ?";
-	private static final String readall = "SELECT * FROM personas";
+	private static final String insert = "INSERT INTO persona(idPersona, nombre, telefono, email) VALUES(?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM persona WHERE idPersona = ?";
+	//agregar borrado de domicilio al borrar una persona
+	private static final String readall = "SELECT * FROM persona";
 		
-	public boolean insert(PersonaDTO persona)
+	public boolean insert(PersonaDTO persona, DomicilioDTO domicilio)
 	{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
 		try
 		{
+			//agregamos primero el domicilio
+			DomicilioDAOSQL dom = new DomicilioDAOSQL();
+		
+			if(dom.insert(domicilio)) {
+		
+			
 			statement = conexion.prepareStatement(insert);
 			statement.setInt(1, persona.getIdPersona());
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
+			statement.setString(4, persona.getEmail());
+			//statement.setString(4, persona.getEmail());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
 				isInsertExitoso = true;
 			}
-		} 
+		} }
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -96,6 +106,8 @@ public class PersonaDAOSQL implements PersonaDAO
 		int id = resultSet.getInt("idPersona");
 		String nombre = resultSet.getString("Nombre");
 		String tel = resultSet.getString("Telefono");
-		return new PersonaDTO(id, nombre, tel);
+		//String dom = resultSet.getString("Domicilio");
+		String mail = resultSet.getString("Email");
+		return new PersonaDTO(id, nombre, tel, mail);
 	}
 }
