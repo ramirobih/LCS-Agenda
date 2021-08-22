@@ -14,20 +14,22 @@ import persistencia.dao.interfaz.PersonaDAO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO persona(idPersona, nombre, telefono, email) VALUES(?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO persona(idPersona, Nombre, Telefono, Email, Cumple, TipodDeContactoID, domicilioID) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM persona WHERE idPersona = ?";
 	//agregar borrado de domicilio al borrar una persona
 	private static final String readall = "SELECT * FROM persona";
+	//private static final String innerJoin = "SELECT * FROM persona INNER JOIN domicilio ON persona.idPersona = domicilio.idDomicilio";
 		
 	public boolean insert(PersonaDTO persona, DomicilioDTO domicilio)
 	{
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isInsertExitoso = false;
+		DomicilioDAOSQL dom = new DomicilioDAOSQL();
+
 		try
 		{
 			//agregamos primero el domicilio
-			DomicilioDAOSQL dom = new DomicilioDAOSQL();
 		
 			if(dom.insert(domicilio)) {
 		
@@ -37,7 +39,9 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
 			statement.setString(4, persona.getEmail());
-			//statement.setString(4, persona.getEmail());
+			statement.setString(5, persona.getCumple());
+			statement.setString(6, persona.getTipo());
+			statement.setInt(7, domicilio.getIdDomicilio());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -48,7 +52,8 @@ public class PersonaDAOSQL implements PersonaDAO
 		{
 			e.printStackTrace();
 			try {
-				conexion.rollback();
+				dom.delete(domicilio);
+				conexion.rollback();				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -88,6 +93,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		try 
 		{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
+//			statement = conexion.getSQLConexion().prepareStatement(innerJoin);
 			resultSet = statement.executeQuery();
 			while(resultSet.next())
 			{
@@ -106,8 +112,12 @@ public class PersonaDAOSQL implements PersonaDAO
 		int id = resultSet.getInt("idPersona");
 		String nombre = resultSet.getString("Nombre");
 		String tel = resultSet.getString("Telefono");
-		//String dom = resultSet.getString("Domicilio");
 		String mail = resultSet.getString("Email");
-		return new PersonaDTO(id, nombre, tel, mail);
+		int domID  = resultSet.getInt("domicilioID");
+		String cumple = resultSet.getString("cumple");
+		String tipo = resultSet.getString("tipodDeContactoID");
+		
+		//String dom = resultSet.getString("Domicilio");
+		return new PersonaDTO(id, nombre, tel, mail, cumple, tipo, domID);
 	}
 }
