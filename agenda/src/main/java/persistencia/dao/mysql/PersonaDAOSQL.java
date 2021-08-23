@@ -14,7 +14,7 @@ import persistencia.dao.interfaz.PersonaDAO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO persona(idPersona, Nombre, Telefono, Email, Cumple, TipodDeContactoID, domicilioID) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO persona(idPersona, Nombre, Telefono, Email, domicilioID, cumple, TipodDeContactoID) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM persona WHERE idPersona = ?";
 	//agregar borrado de domicilio al borrar una persona
 	private static final String readall = "SELECT * FROM persona";
@@ -40,7 +40,7 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(3, persona.getTelefono());
 			statement.setString(4, persona.getEmail());
 			statement.setString(5, persona.getCumple());
-			statement.setString(6, persona.getTipo());
+			statement.setInt(6, persona.getTipo());
 			statement.setInt(7, domicilio.getIdDomicilio());
 			if(statement.executeUpdate() > 0)
 			{
@@ -115,7 +115,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		String mail = resultSet.getString("Email");
 		int domID  = resultSet.getInt("domicilioID");
 		String cumple = resultSet.getString("cumple");
-		String tipo = resultSet.getString("tipodDeContactoID");
+		int tipo = resultSet.getInt("tipodDeContactoID");
 		
 		//String dom = resultSet.getString("Domicilio");
 		return new PersonaDTO(id, nombre, tel, mail, cumple, tipo, domID);

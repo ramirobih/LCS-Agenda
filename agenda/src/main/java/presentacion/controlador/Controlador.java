@@ -38,13 +38,14 @@ public class Controlador implements ActionListener
 			String tel = ventanaPersona.getTextTelefono().getText();
 			String mail = this.ventanaPersona.getTextEmail().getText();
 			String cumple = this.ventanaPersona.getTextCumple().getText();
-			String tipo = this.ventanaPersona.getTextTipoContacto().getText();
+			//String tipo = this.ventanaPersona.getTextTipoContacto().getText();
+			int tipo = 1;
 			String calle = this.ventanaPersona.getTextCalle().getText();
 			String altura = this.ventanaPersona.getTextAltura().getText();
 			String piso = this.ventanaPersona.getTextPiso().getText();
 			String depto = this.ventanaPersona.getTextNumDepto().getText();
 			
-			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, mail, cumple, tipo,0 ); //cambiar ultimo 0
+			PersonaDTO nuevaPersona = new PersonaDTO(0, nombre, tel, mail, cumple, tipo, 0); //cambiar ultimo 0
 			DomicilioDTO nuevoDom = new DomicilioDTO(0, calle, altura, piso, depto);
 			this.agenda.agregarPersona(nuevaPersona,nuevoDom);
 			this.refrescarTabla();

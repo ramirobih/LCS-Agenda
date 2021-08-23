@@ -7,10 +7,10 @@ public class PersonaDTO
 	private String telefono;
 	private String email;
 	private String cumple;
-	private String tipo;
+	private int tipo;
 	private int idDomicilio;
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String cumple, String tipo, int idDomicilio) {
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String cumple, int tipo, int idDomicilio) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
@@ -75,11 +75,11 @@ public class PersonaDTO
 		this.cumple = cumple;
 	}
 
-	public String getTipo() {
+	public int getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 

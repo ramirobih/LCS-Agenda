@@ -139,7 +139,7 @@ public class Vista
 			String tel = p.getTelefono();
 			String mail = p.getEmail();
 			String cumple =p.getCumple();
-			String tipo = p.getTipo();
+			int tipo = p.getTipo();
 			int dom = p.getIdDomicilio();
 			
 			Object[] fila = {nombre, tel, mail,cumple, tipo, dom};
