@@ -5,21 +5,16 @@ public class PersonaDTO
 	private int idPersona;
 	private String nombre;
 	private String telefono;
+	private String domicilio;
 	private String email;
-	private String cumple;
-	private String tipo;
-	private int idDomicilio;
-	
 
-	public PersonaDTO(int idPersona, String nombre, String telefono, String email, String cumple, String tipo, int idDomicilio) {
+
+	public PersonaDTO(int idPersona, String nombre, String telefono, String email) {
 		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.telefono = telefono;
-		this.email = email;
-		this.cumple = cumple;
-		this.tipo = tipo;
-		this.idDomicilio = idDomicilio;
-	
+		//this.domicilio = domicilio;
+		this.setEmail(email);
 	}
 
 	public int getIdPersona() 
@@ -52,12 +47,12 @@ public class PersonaDTO
 		this.telefono = telefono;
 	}
 
-	public int getIdDomicilio() {
-		return idDomicilio;
+	public String getDomicilio() {
+		return domicilio;
 	}
 
-	public void setIdDomicilio(int idDomicilio) {
-		this.idDomicilio = idDomicilio;
+	public void setDomicilio(String domicilio) {
+		this.domicilio = domicilio;
 	}
 
 	public String getEmail() {
@@ -68,21 +63,6 @@ public class PersonaDTO
 		this.email = email;
 	}
 
-	public String getCumple() {
-		
-		return cumple;
-	}
-
-	public void setCumple(String cumple) {
-		this.cumple = cumple;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+	
 
 }
