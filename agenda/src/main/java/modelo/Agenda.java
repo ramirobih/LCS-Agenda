@@ -22,9 +22,9 @@ public class Agenda
 		this.persona.insert(nuevaPersona, domicilio);
 	}
 
-	public void borrarPersona(PersonaDTO persona_a_eliminar) 
+	public void borrarPersona(PersonaDTO persona_a_eliminar, DomicilioDTO domicilio_a_eliminar) 
 	{
-		this.persona.delete(persona_a_eliminar);
+		this.persona.delete(persona_a_eliminar, domicilio_a_eliminar);
 	}
 	
 	public List<PersonaDTO> obtenerPersonas()

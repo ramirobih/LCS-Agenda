@@ -14,7 +14,7 @@ import persistencia.dao.interfaz.PersonaDAO;
 
 public class PersonaDAOSQL implements PersonaDAO
 {
-	private static final String insert = "INSERT INTO persona(idPersona, Nombre, Telefono, Email, domicilioID, cumple, TipodDeContactoID) VALUES(?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO persona(idPersona, Nombre, Telefono, Email, domicilioID, cumple, TipoDeContactoID) VALUES(?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM persona WHERE idPersona = ?";
 	//agregar borrado de domicilio al borrar una persona
 	private static final String readall = "SELECT * FROM persona";
@@ -39,9 +39,9 @@ public class PersonaDAOSQL implements PersonaDAO
 			statement.setString(2, persona.getNombre());
 			statement.setString(3, persona.getTelefono());
 			statement.setString(4, persona.getEmail());
-			statement.setString(5, persona.getCumple());
-			statement.setInt(6, persona.getTipo());
-			statement.setInt(7, domicilio.getIdDomicilio());
+			statement.setInt(5, domicilio.getIdDomicilio());
+			statement.setString(6, persona.getCumple());
+			statement.setString(7, persona.getTipo());
 			if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
@@ -62,21 +62,24 @@ public class PersonaDAOSQL implements PersonaDAO
 		return isInsertExitoso;
 	}
 	
-	public boolean delete(PersonaDTO persona_a_eliminar)
+	public boolean delete(PersonaDTO persona_a_eliminar, DomicilioDTO  domicilio_a_eliminar)
 	{
+		DomicilioDAOSQL dom = new DomicilioDAOSQL();
 		PreparedStatement statement;
 		Connection conexion = Conexion.getConexion().getSQLConexion();
 		boolean isdeleteExitoso = false;
 		try 
 		{
-			statement = conexion.prepareStatement(delete);
-			statement.setString(1, Integer.toString(persona_a_eliminar.getIdPersona()));
-			if(statement.executeUpdate() > 0)
+			if(dom.delete(domicilio_a_eliminar))
+			{
+				statement = conexion.prepareStatement(delete);
+				statement.setString(1, Integer.toString(persona_a_eliminar.getIdPersona()));
+			
+				if(statement.executeUpdate() > 0)
 			{
 				conexion.commit();
 				isdeleteExitoso = true;
-			}
-		} 
+			}}} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -115,7 +118,7 @@ public class PersonaDAOSQL implements PersonaDAO
 		String mail = resultSet.getString("Email");
 		int domID  = resultSet.getInt("domicilioID");
 		String cumple = resultSet.getString("cumple");
-		int tipo = resultSet.getInt("tipodDeContactoID");
+		String tipo = resultSet.getString("tipoDeContactoID");
 		
 		//String dom = resultSet.getString("Domicilio");
 		return new PersonaDTO(id, nombre, tel, mail, cumple, tipo, domID);
