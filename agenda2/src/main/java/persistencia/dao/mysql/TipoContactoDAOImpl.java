@@ -131,7 +131,7 @@ public class TipoContactoDAOImpl implements TipoContactoDAO
 			{
 				TipoContactoDTO tipoContacto = new TipoContactoDTO(resultSet.getInt("idTipoContacto"),resultSet.getString("nombre"));
 				tipoContactos.add(tipoContacto);
-				//System.out.println(tipoContacto);
+				System.out.println(tipoContacto);
 			}
 		} 
 		catch (SQLException e) 

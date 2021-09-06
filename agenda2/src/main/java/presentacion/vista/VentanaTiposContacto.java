@@ -34,7 +34,7 @@ public class VentanaTiposContacto extends JFrame
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 11, 314, 89);
+		panel.setBounds(10, 11, 340, 90);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		

@@ -8,8 +8,7 @@ import javax.swing.JOptionPane;
 
 import modelo.Agenda;
 import presentacion.reportes.ReporteAgenda;
-
-
+import presentacion.vista.VentanaConexion;
 import presentacion.vista.VentanaPersona;
 import presentacion.vista.Vista;
 import presentacion.vista.VistaLocalidades;
@@ -35,6 +34,7 @@ public class Controlador implements ActionListener
 			this.vista.getBtnReporte().addActionListener(this);
 			this.vista.getBtnABMLocalidades().addActionListener(this);
 			this.vista.getBtnABMTiposContacto().addActionListener(this);
+			this.vista.getBtnCambiarBD().addActionListener(this);
 			this.agenda = agenda;
 			this.personas_en_tabla = null;
 		}
@@ -114,6 +114,18 @@ public class Controlador implements ActionListener
 				
 				ReporteAgenda reporte = new ReporteAgenda(agenda.obtenerPersonas());
 				reporte.mostrar();				
+			}
+			
+			else if(e.getSource() == this.vista.getBtnCambiarBD())
+			{	
+				
+//				Vista vista = new Vista();
+//				Agenda modelo = new Agenda();
+//				Controlador controlador = new Controlador(vista, modelo);
+				VentanaConexion ventana = new VentanaConexion();
+
+				
+				
 			}
 			
 			else if(e.getSource() == this.vista.getBtnABMLocalidades())

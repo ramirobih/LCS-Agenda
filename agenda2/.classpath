@@ -38,7 +38,7 @@
 	<classpathentry kind="lib" path="lib/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-digester-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Rama/Documents/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Rama/Downloads/gson-2.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Rama/Documents/mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

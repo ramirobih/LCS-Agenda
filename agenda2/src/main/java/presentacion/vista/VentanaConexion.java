@@ -1,105 +1,177 @@
 package presentacion.vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
-public class VentanaConexion extends JFrame {
+import modelo.Agenda;
+//import dto.ConexionDTO;
+import persistencia.conexion.Conexion;
+import presentacion.controlador.Controlador;
 
-	private JPanel contentPane;
-	private JTextField textUsuario;
-	private JTextField textContraseña;
-	private JTextField textHost;
-	private JTextField textPuerto;
-	private JButton btnEntrar;
-
+public class VentanaConexion implements ActionListener {
 	/**
-	 * Launch the application.
+	 * 
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaConexion frame = new VentanaConexion();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	//private static final long serialVersionUID = 1L;
+	private JFrame frame;
+	private JPanel contentPane;
+	private JTextField txtServidor;
+	private JTextField txtPuerto;
+	private JTextField txtUsuario;
+	private JTextField txtContraseña;
+	private JTextField txtBaseDatos;
+	private JButton btnIniciarServidor;
+	private Controlador controlador;
+	private JPanel panel;
+
+	public VentanaConexion() {
+		super();
+		//this.controlador = controlador;
+		inicializar();
+		this.getBtnIniciarServidor().addActionListener(this);
+
+		this.getFrame().addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				// Se habilita abrir la ventana de agregar persona luego de
+				// que la misma se cierra
+				
 			}
 		});
+
+		this.frame.setVisible(true);
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public VentanaConexion() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+	private void inicializar() {
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setBounds(100, 100, 350, 350);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.CENTER);
+		frame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		panel = new JPanel();
+		panel.setBounds(10, 11, 340, 340);
+		contentPane.add(panel);
 		panel.setLayout(null);
-		
-		JLabel lblUsuario = new JLabel("Usuario:");
-		lblUsuario.setBounds(10, 27, 70, 20);
-		panel.add(lblUsuario);
-		
-		JLabel lblContraseña = new JLabel("Contrase\u00F1a:");
-		lblContraseña.setBounds(10, 77, 70, 20);
-		panel.add(lblContraseña);
-		
-		textUsuario = new JTextField();
-		textUsuario.setBounds(90, 27, 290, 20);
-		panel.add(textUsuario);
-		textUsuario.setColumns(10);
-		
-		textContraseña = new JTextField();
-		textContraseña.setBounds(90, 77, 290, 20);
-		panel.add(textContraseña);
-		textContraseña.setColumns(10);
-		
-		JLabel lblHost = new JLabel("Host: ");
-		lblHost.setBounds(10, 121, 70, 20);
-		panel.add(lblHost);
-		
-		textHost = new JTextField();
-		textHost.setBounds(90, 121, 290, 20);
-		panel.add(textHost);
-		textHost.setColumns(10);
-		
-		JLabel lblPuerto = new JLabel("Puerto:");
-		lblPuerto.setBounds(10, 165, 70, 20);
+
+		JLabel lblNombre = new JLabel("Servidor");
+		lblNombre.setBounds(10, 11, 113, 14);
+		panel.add(lblNombre);
+
+		JLabel lblPuerto = new JLabel("Puerto");
+		lblPuerto.setBounds(10, 52, 113, 14);
 		panel.add(lblPuerto);
-		
-		textPuerto = new JTextField();
-		textPuerto.setBounds(90, 165, 290, 20);
-		panel.add(textPuerto);
-		textPuerto.setColumns(10);
-		
-		btnEntrar = new JButton("Entrar");
-		btnEntrar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) 
-			{
-				//GUARDA EN ARCHIVO DATOS DE CONEXION
-				//TESTEO CONEXION
-				//CHEQUEO SI EXISTE DB
-				//SI NO EXISTE CREO DB Y TABLAS
-			}
-		});
-		btnEntrar.setBounds(180, 217, 89, 23);
-		panel.add(btnEntrar);
+
+		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario.setBounds(10, 93, 113, 14);
+		panel.add(lblUsuario);
+
+		JLabel lblClave = new JLabel("Clave");
+		lblClave.setBounds(10, 134, 113, 14);
+		panel.add(lblClave);
+
+		JLabel lblBD = new JLabel("Base de Datos");
+		lblBD.setBounds(10, 175, 113, 14);
+		panel.add(lblBD);
+
+		txtServidor = new JTextField();
+		txtServidor.setBounds(133, 8, 164, 20);
+		panel.add(txtServidor);
+		txtServidor.setColumns(10);
+
+		txtPuerto = new JTextField();
+		txtPuerto.setBounds(133, 49, 164, 20);
+		panel.add(txtPuerto);
+		txtPuerto.setColumns(10);
+
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(133, 90, 164, 20);
+		panel.add(txtUsuario);
+		txtServidor.setColumns(10);
+
+		txtContraseña = new JTextField();
+		txtContraseña.setBounds(133, 131, 164, 20);
+		panel.add(txtContraseña);
+		txtContraseña.setColumns(10);
+
+		txtBaseDatos = new JTextField();
+		txtBaseDatos.setBounds(133, 172, 164, 20);
+		panel.add(txtBaseDatos);
+		txtBaseDatos.setColumns(10);
+
+		btnIniciarServidor = new JButton("Actualizar");
+		btnIniciarServidor.addActionListener(this.controlador);
+		btnIniciarServidor.setBounds(90, 250, 100, 23);
+		panel.add(btnIniciarServidor);
+
+		this.frame.setTitle("Configurar conexión");
+
 	}
+
+	public JTextField getTxtServidor() {
+		return txtServidor;
+	}
+
+//	public static long getSerialversionuid() {
+//		return serialVersionUID;
+//	}
+
+	public JTextField getTxtPuerto() {
+		return txtPuerto;
+	}
+
+	public JTextField getTxtUsuario() {
+		return txtUsuario;
+	}
+
+	public JTextField getTxtContraseña() {
+		return txtContraseña;
+	}
+
+	public JTextField getTxtBaseDatos() {
+		return txtBaseDatos;
+	}
+
+	public JButton getBtnIniciarServidor() {
+		return btnIniciarServidor;
+	}
+
+	public JFrame getFrame() {
+		return this.frame;
+	}
+
+	public void show() {
+		this.frame.setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.getBtnIniciarServidor()) {
+			actionBtnActualizarConexion();
+		}
+	}
+
+	private void actionBtnActualizarConexion()
+	{
+		
+		Conexion conexion = new Conexion(getTxtServidor().getText(),getTxtPuerto().getText(),getTxtBaseDatos().getText(),getTxtUsuario().getText(),getTxtContraseña().getText());
+		Vista vista = new Vista();
+		Agenda modelo = new Agenda();
+		Controlador controlador = new Controlador(vista, modelo);
+		controlador.inicializar();
+		frame.dispose();
+	}
+			
+			
+		
 }

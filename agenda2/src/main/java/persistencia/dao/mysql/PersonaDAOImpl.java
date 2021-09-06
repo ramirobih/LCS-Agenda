@@ -62,10 +62,10 @@ public class PersonaDAOImpl implements PersonaDAO
 		{
 			e.printStackTrace();
 		}
-//		finally //Se ejecuta siempre
-//		{
-//			conexion.cerrarConexion();
-//		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 	
@@ -95,10 +95,10 @@ public class PersonaDAOImpl implements PersonaDAO
 		{
 			e.printStackTrace();
 		}
-//		finally //Se ejecuta siempre
-//		{
-//			conexion.cerrarConexion();
-//		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 	
@@ -118,10 +118,10 @@ public class PersonaDAOImpl implements PersonaDAO
 		{
 			e.printStackTrace();
 		}
-//		finally //Se ejecuta siempre
-//		{
-//			conexion.cerrarConexion();
-//		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 	
@@ -153,10 +153,10 @@ public class PersonaDAOImpl implements PersonaDAO
 		{
 			e.printStackTrace();
 		}
-//		finally //Se ejecuta siempre
-//		{
-//			conexion.cerrarConexion();
-//		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return personas;
 	}
 	
@@ -190,10 +190,10 @@ public class PersonaDAOImpl implements PersonaDAO
 		{
 			e.printStackTrace();
 		}
-//		finally //Se ejecuta siempre
-//		{
-//			conexion.cerrarConexion();
-//		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return persona;
 	}
 	

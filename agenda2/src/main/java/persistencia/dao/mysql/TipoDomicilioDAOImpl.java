@@ -130,7 +130,7 @@ public class TipoDomicilioDAOImpl implements TipoDomicilioDAO
 			{
 				TipoDomicilioDTO tipoDomicilio = new TipoDomicilioDTO(resultSet.getInt("idTipoDomicilio"),resultSet.getString("nombre"));
 				tipoDomicilios.add(tipoDomicilio);
-				//System.out.println(tipoDomicilio);
+				System.out.println(tipoDomicilio);
 			}
 		} 
 		catch (SQLException e) 
